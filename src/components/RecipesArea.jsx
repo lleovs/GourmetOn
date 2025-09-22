@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Filters from "./Filters";
 import RecipeCard from "./RecipeCard";
+import RecipeFooter from "./RecipeFooter";
+import Testimony from "./Testimony";
 
 export default function RecipeArea() {
   const [query, setQuery] = useState("");
@@ -65,6 +67,11 @@ export default function RecipeArea() {
           <RecipeCard recipe={food} key={food.id} />
         ))}
       </div>
+        <Testimony />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4"></div>
+    
+        <RecipeFooter />
+
     </>
   );
 }
