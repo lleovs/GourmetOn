@@ -1,81 +1,101 @@
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react"; // ícones hamburguer
+'use client'
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
+import { Dialog, DialogPanel } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+
+const navigation = [
+  { name: 'Quem Somos', href: '#quemsomos' },
+  { name: 'Nossos Produtos', href: '#culinaria' },
+  { name: 'O Que Falam de Nós', href: '#testemunhos' },
+  { name: 'Contato', href: '#contato' },
+]
+
+export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-fuchsia-100 shadow-lg z-50">
+    <header className="fixed top-0 left-0 w-full bg-rose-300 shadow-md z-50">
+      <nav aria-label="Global" className="flex items-center justify-between px-6 py-4 lg:px-12">
+        
+        <div className="flex lg:flex-1">
+          <span className="text-rose-600 font-bold text-xl">GourmetON</span>
+        </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* barra completa */}
-        <div className="flex justify-between items-center h-16">
-          {/* logo */}
-          <div className="text-2xl font-bold text-gray-800">GourmetOn</div>
-
-          {/* links desktop */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-gray-700 hover:text-blue-600">
-              Home
-            </a>
-            <a href="#sobre" className="text-gray-700 hover:text-blue-600">
-              Comentarios
-            </a>
-            <a href="#servicos" className="text-gray-700 hover:text-blue-600">
-              Serviços
-            </a>
-            <a href="#contato" className="text-gray-700 hover:text-blue-600">
-              Contato
-            </a>
-          </div>
-
-          {/* botão mobile */}
+        
+        <div className="flex lg:hidden">
           <button
-            className="md:hidden text-gray-800"
-            onClick={() => setOpen(!open)}
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="inline-flex items-center justify-center rounded-md p-2.5 text-rose-600 hover:bg-rose-200 transition"
           >
-            {open ? <X size={24} /> : <Menu size={24} />}
+            <span className="sr-only">Abrir menu</span>
+            <Bars3Icon aria-hidden="true" className="w-6 h-6" />
           </button>
         </div>
-      </div>
 
-      {/* menu mobile */}
-      {open && (
-        <div className="md:hidden bg-white shadow-md">
-          <div className="px-4 pt-2 pb-4 space-y-2">
+        
+        <div className="hidden lg:flex lg:gap-x-10">
+          {navigation.map((item) => (
             <a
-              href="#home"
-              className="block text-gray-700 hover:text-blue-600"
-              onClick={() => setOpen(false)}
+              key={item.name}
+              href={item.href}
+              className="text-sm font-medium text-rose-700 hover:text-rose-900 transition"
             >
-              Home
+              {item.name}
             </a>
-            <a
-              href="#sobre"
-              className="block text-gray-700 hover:text-blue-600"
-              onClick={() => setOpen(false)}
-            >
-              Sobre
-            </a>
-            <a
-              href="#servicos"
-              className="block text-gray-700 hover:text-blue-600"
-              onClick={() => setOpen(false)}
-            >
-              Serviços
-            </a>
-            <a
-              href="#contato"
-              className="block text-gray-700 hover:text-blue-600"
-              onClick={() => setOpen(false)}
-            >
-              Contato
-            </a>
-          </div>
+          ))}
         </div>
-      )}
-    </nav>
-  );
-};
 
-export default Navbar;
+        {/* Login */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <a
+            href="#"
+            className="text-sm font-semibold text-rose-600 hover:text-rose-800 transition"
+          >
+            Entrar →
+          </a>
+        </div>
+      </nav>
+
+      
+      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+        <div className="fixed inset-0 z-50 bg-black/40" />
+        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full max-w-sm overflow-y-auto bg-rose-50 p-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <span className="text-rose-600 font-bold text-xl">GourmetON</span>
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(false)}
+              className="rounded-md p-2 text-rose-600 hover:bg-rose-200 transition"
+            >
+              <span className="sr-only">Fechar menu</span>
+              <XMarkIcon aria-hidden="true" className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="mt-6 divide-y divide-rose-200">
+            <div className="space-y-4 py-6">
+              {navigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block rounded-lg px-3 py-2 text-base font-medium text-rose-700 hover:bg-rose-200 transition"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+            <div className="py-6">
+              <a
+                href="#"
+                className="block rounded-lg px-3 py-2 text-base font-semibold text-rose-600 hover:bg-rose-200 transition"
+              >
+                Entrar
+              </a>
+            </div>
+          </div>
+        </DialogPanel>
+      </Dialog>
+    </header>
+  )
+}
