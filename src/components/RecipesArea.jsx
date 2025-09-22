@@ -52,7 +52,7 @@ export default function RecipeArea() {
 
   return (
     <>
-      <div className="bg-fuchsia-100 w-full flex justify-center p-4">
+      <div className="bg-fuchsia-100 w-full flex justify-center p-4 pt-20">
         <Filters
         value={query}
         onChange={(e) => setQuery(e.target.value)}
