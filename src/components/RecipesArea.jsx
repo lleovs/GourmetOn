@@ -22,6 +22,7 @@ export default function RecipeArea() {
     return url;
   };
 
+  
   const fetchData = async () => {
     if (!query) return;
   
@@ -42,7 +43,6 @@ export default function RecipeArea() {
       console.error("Erro ao buscar receitas:", error);
     }
   };
-  
   useEffect(() => {
     const handler = setTimeout(() => fetchData(), 500);
     return () => clearTimeout(handler);
