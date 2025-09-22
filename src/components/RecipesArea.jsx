@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Filters from "./Filters";
 import RecipeCard from "./RecipeCard";
-import RecipeFooter from "./RecipeFooter";
-import Testimony from "./Testimony";
 
 export default function RecipeArea() {
   const [query, setQuery] = useState("");
@@ -26,25 +24,21 @@ export default function RecipeArea() {
 
   const fetchData = async () => {
     if (!query) return;
-  
+
     try {
       const response = await fetch(buildApiUrl());
       const data = await response.json();
       let results = data.results || [];
-  
-      // Ordenação local
-      if (sortOption === "asc") {
-        results.sort((a, b) => a.title.localeCompare(b.title));
-      } else if (sortOption === "desc") {
-        results.sort((a, b) => b.title.localeCompare(a.title));
-      }
-  
+
+      if (sortOption === "asc") results.sort((a, b) => a.title.localeCompare(b.title));
+      else if (sortOption === "desc") results.sort((a, b) => b.title.localeCompare(a.title));
+
       setFoods(results);
     } catch (error) {
       console.error("Erro ao buscar receitas:", error);
     }
   };
-  
+
   useEffect(() => {
     const handler = setTimeout(() => fetchData(), 500);
     return () => clearTimeout(handler);
@@ -52,26 +46,21 @@ export default function RecipeArea() {
 
   return (
     <>
-      <div className="bg-fuchsia-100 w-full flex justify-center p-4 pt-20">
-        <Filters
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-          placeholder="Digite o nome de uma comida"
-          onApplyFilter={(filters) => setDietFilters(filters)}
-          onApplySorter={(sort) => setSortOption(sort)}
-        />
+      {/* Cabeçalho compacto */}
+      <div className="bg-rose-100 w-full flex flex-col justify-center items-center p-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-rose-600 mb-4 text-center">
+          Área de Pesquisa
+        </h2>
+        <div className="w-full max-w-4xl">
+          <Filters
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Pesquisar no Catálogo"
+            onApplyFilter={(filters) => setDietFilters(filters)}
+            onApplySorter={(sort) => setSortOption(sort)}
+          />
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
-        {foods.map((food) => (
-          <RecipeCard recipe={food} key={food.id} />
-        ))}
-      </div>
-        <Testimony />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4"></div>
-    
-        <RecipeFooter />
-
     </>
   );
 }

@@ -1,5 +1,4 @@
 // Testimony.jsx
-import React from "react";
 
 export default function Testimony() {
   const testimonials = [
@@ -18,9 +17,9 @@ export default function Testimony() {
   ];
 
   return (
-    <section className="bg-fuchsia-100 py-16 px-6">
+    <section id="testemunhos" className="bg-rose-100 py-16 px-6 w-screen">
       <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-800">
+        <h2 className="text-3xl font-bold text-rose-600">
           O Que Nossos Clientes Dizem
         </h2>
       </div>
@@ -29,14 +28,14 @@ export default function Testimony() {
         {testimonials.map((t, index) => (
           <div
             key={index}
-            className="bg-white rounded-lg shadow-lg p-6 md:p-10"
+            className="bg-white rounded-xl shadow-md p-6 md:p-10"
           >
-            <p className="text-rose-600 font-medium text-center mb-4">
+            <p className="text-rose-500 font-medium text-center mb-4">
               "{t.comment}"
             </p>
             <div className="flex flex-col items-center">
-              <p className="font-semibold text-gray-800">{t.name}</p>
-              <p className="text-sm text-gray-500">{t.role}</p>
+              <p className="font-semibold text-rose-700">{t.name}</p>
+              <p className="text-sm text-rose-400">{t.role}</p>
             </div>
           </div>
         ))}
