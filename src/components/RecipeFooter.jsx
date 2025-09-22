@@ -1,7 +1,7 @@
  
-export default function SimpleFooter() {
+export default function RecipeFooter() {
   return (
-    <footer className="text-rose-600 font-medium text-center">
+    <footer id="contato" className="text-rose-600 font-medium text-center w-screen">
   <div className="bg-fuchsia-100">
     <p>&copy; {new Date().getFullYear()} Meu Site. Todos os direitos reservados.</p>
     <nav className="mt-2">
