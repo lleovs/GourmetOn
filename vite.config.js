@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     taiwindcss(),
   ],
-  base: "/GourmetON/"
+  base: '/GourmetON/'
 })
