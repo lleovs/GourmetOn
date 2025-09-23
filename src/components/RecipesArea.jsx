@@ -60,6 +60,16 @@ export default function RecipeArea() {
             onApplySorter={(sort) => setSortOption(sort)}
           />
         </div>
+        {/* Grid de receitas compacta */}
+      <div className="bg-rose-100 w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+        {foods.length > 0 ? (
+          foods.map((food) => <RecipeCard recipe={food} key={food.id} />)
+        ) : (
+          <p className="text-rose-600 text-center col-span-full">
+            Nenhuma receita encontrada. Tente outra busca.
+          </p>
+        )}
+      </div>
       </div>
     </>
   );
