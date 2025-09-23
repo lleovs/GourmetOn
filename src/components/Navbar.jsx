@@ -3,6 +3,7 @@
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
+import SignupForm from './SignupForm'
 
 const navigation = [
   { name: 'Quem Somos', href: '#quemsomos' },
@@ -13,6 +14,7 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [signupOpen, setSignupOpen] = useState(false)
 
   return (
     <header className="fixed top-0 left-0 w-full bg-rose-300 shadow-md z-50">
@@ -47,14 +49,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Login */}
+         {/* Login */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={() => setSignupOpen(true)}
             className="text-sm font-semibold text-rose-600 hover:text-rose-800 transition"
           >
             Entrar →
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -86,12 +89,35 @@ export default function Navbar() {
               ))}
             </div>
             <div className="py-6">
-              <a
-                href="#"
-                className="block rounded-lg px-3 py-2 text-base font-semibold text-rose-600 hover:bg-rose-200 transition"
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setSignupOpen(true)
+                }}
+                className="w-full text-left block rounded-lg px-3 py-2 text-base font-semibold text-rose-600 hover:bg-rose-200 transition"
               >
                 Entrar
-              </a>
+              </button>
+            </div>
+          </div>
+        </DialogPanel>
+      </Dialog>
+      <Dialog open={signupOpen} onClose={setSignupOpen} className="">
+        <div className="fixed inset-0 z-40 bg-black/40" />
+        <DialogPanel className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="max-w-lg w-full">
+            <div className="bg-rose-50 p-4 rounded shadow">
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setSignupOpen(false)}
+                  className="p-1 text-rose-600 hover:text-rose-800"
+                >
+                  Fechar
+                </button>
+              </div>
+              <SignupForm />
             </div>
           </div>
         </DialogPanel>
